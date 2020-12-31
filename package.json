@@ -1,0 +1,22 @@
+{
+  "name": "luogu-painter",
+  "version": "1.0.0",
+  "description": "The Painter of Luogu PaintBoard",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Early0v0/Luogu-Painter.git"
+  },
+  "author": "Early <lin_erli@outlook.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Early0v0/Luogu-Painter/issues"
+  },
+  "homepage": "https://github.com/Early0v0/Luogu-Painter#readme",
+  "dependencies": {
+    "node-fetch": "^2.6.0"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "picName": "pic.json",
+  "x": 0,
+  "y": 0,
+  "fetchTime": 10000,
+  "paintTime": 31000,
+  "users": [
+    {
+      "uid": 998244353,
+      "client_id": "qaqwqvq"
+    }
+  ]
+}
