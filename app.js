@@ -70,9 +70,9 @@ async function getBoard() {
     if (!board[board.length - 1]) {
       board.pop();
     }
-    console.log('Get PaintBoard Succeeded.');
+    console.log(new Date().toLocaleString(), 'Get PaintBoard Succeeded.');
   } catch (err) {
-    console.warn('Get PaintBoard Failed:', err);
+    console.warn(new Date().toLocaleString(), 'Get PaintBoard Failed:', err);
   }
 }
 
@@ -93,11 +93,11 @@ async function paintBoard(user, data) {
     });
     res = JSON.parse(await res.text());
     if (res.status == 200) {
-      console.log('Paint PaintBoard Succeeded:', res.data);
+      console.log(new Date().toLocaleString(), 'Paint PaintBoard Succeeded:', res.data);
     } else {
       throw new Error(res.data);
     }
   } catch (err) {
-    console.warn('Paint PaintBoard Failed:', err);
+    console.warn(new Date().toLocaleString(), 'Paint PaintBoard Failed:', err);
   }
 }
