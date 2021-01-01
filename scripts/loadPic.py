@@ -1,9 +1,8 @@
 from PIL import Image
 import json
-from colorsys import rgb_to_hsv
 
 imagePath = "./pic.jpg" # 文件地址，仅支持 .jpg 格式
-dataPath = './pic.json' # 输出地址
+dataPath = '../pic.json' # 输出地址
 
 # 缩放后像素大小
 width = 48
@@ -49,12 +48,8 @@ def get_color(pixel):
     return min_color_diff(pixel, colors)[1]
 
 
-def to_hsv(color):
-    return rgb_to_hsv(*[x / 255.0 for x in color])
-
-
 def color_dist(c1, c2):
-    return sum((a - b) ** 2 for a, b in zip(to_hsv(c1), to_hsv(c2)))
+    return sum(abs(a - b) for a, b in zip(c1, c2))
 
 
 def min_color_diff(color_to_match, colors):
