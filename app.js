@@ -45,7 +45,7 @@ function getConfig() {
   try {
     config = JSON.parse(fs.readFileSync(path.join(__dirname, 'config.json'), 'utf-8'));
     for (let user of config.users) {
-      user.lastPaintTime = Date.now();
+      user.lastPaintTime = Date.now() - config.lastPaintTime;
     }
   } catch (err) {
     console.error('Get config.json Failed.');
