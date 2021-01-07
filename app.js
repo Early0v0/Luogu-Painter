@@ -10,8 +10,7 @@ const luoguPaintBoardUrl = 'https://www.luogu.com.cn/paintBoard';
 
 let config;
 let pic;
-let board = [];
-let lastGetBoardTime;
+let board = [], lastGetBoardTime, reqPaintPos = [];
 
 main();
 
@@ -29,13 +28,10 @@ async function main() {
       if (Date.now() - user.lastPaintTime < config.paintTime) {
         continue;
       }
-      for (let p of pic) {
-        if (parseInt(board[config.x + p.x][config.y + p.y], 36) != p.color) {
-          await paintBoard(user, p);
-          user.lastPaintTime = Date.now();
-          await getBoard();
-          break;
-        }
+      if (reqPaintPos.length) {
+        user.lastPaintTime = Date.now();
+        await paintBoard(user, reqPaintPos.shift());
+        break;
       }
     }
   }
@@ -71,8 +67,27 @@ async function getBoard() {
       board.pop();
     }
     console.log(new Date().toLocaleString(), 'Get PaintBoard Succeeded.');
+    getReqPaintPos();
   } catch (err) {
     console.warn(new Date().toLocaleString(), 'Get PaintBoard Failed:', err);
+  }
+}
+
+function getReqPaintPos() {
+  try {
+    reqPaintPos = [];
+    for (let p of pic) {
+      if (parseInt(board[config.x + p.x][config.y + p.y], 36) != p.color) {
+        reqPaintPos.push({
+          x: p.x + config.x,
+          y: p.y + config.y,
+          color: p.color
+        });
+      }
+    }
+    console.log(new Date().toLocaleString(), 'Load reqPaintPos Succeeded.');
+  } catch (err) {
+    console.warn(new Date().toLocaleString(), 'Load reqPaintPos Failed:', err);
   }
 }
 
@@ -85,11 +100,7 @@ async function paintBoard(user, data) {
         'referer': luoguPaintBoardUrl,
         'cookie': `_uid=${user.uid};__client_id=${user.client_id}`
       },
-      body: querystring.stringify({
-        x: config.x + data.x,
-        y: config.y + data.y,
-        color: data.color
-      })
+      body: querystring.stringify(data)
     });
     res = JSON.parse(await res.text());
     if (res.status == 200) {
