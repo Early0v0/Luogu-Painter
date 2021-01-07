@@ -9,7 +9,7 @@ const process = require('process');
 const luoguPaintBoardUrl = 'https://www.luogu.com.cn/paintBoard';
 
 let config;
-let pic;
+let pic = [];
 let board = [], lastGetBoardTime, reqPaintPos = [];
 
 main();
@@ -51,9 +51,15 @@ function getConfig() {
 
 function getPic() {
   try {
-    pic = JSON.parse(fs.readFileSync(path.join(__dirname, config.picName), 'utf-8'));
+    for (let p of config.picFile) {
+      pic.push({
+        x: p.x,
+        y: p.y,
+        map: JSON.parse(fs.readFileSync(path.join(__dirname, p.name), 'utf-8'))
+      });
+    }
   } catch (err) {
-    console.error('Get pic.json Failed.');
+    console.error('Get Picture Failed.');
     process.exit(1);
   }
 }
@@ -77,12 +83,14 @@ function getReqPaintPos() {
   try {
     reqPaintPos = [];
     for (let p of pic) {
-      if (parseInt(board[config.x + p.x][config.y + p.y], 36) != p.color) {
-        reqPaintPos.push({
-          x: p.x + config.x,
-          y: p.y + config.y,
-          color: p.color
-        });
+      for (let pix of p.map) {
+        if (parseInt(board[pix.x + p.x][pix.y + p.y], 36) != pix.color) {
+          reqPaintPos.push({
+            x: pix.x + p.x,
+            y: pix.y + p.y,
+            color: pix.color
+          });
+        }
       }
     }
     console.log(new Date().toLocaleString(), 'Load reqPaintPos Succeeded.');

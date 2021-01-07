@@ -11,11 +11,13 @@
 3. 使用 `scripts/loadPic.py` 生成图片的 `json` 格式，将其放到项目根目录下。
     - 需要安装 PIL 库：`pip install pillow`。
 4. 复制 `config-example.json` 为 `config.json`，并配置以下内容：
-    1. `picName`：生成好的图片 `json` 文件名。
-    2. `x`,`y`：绘制时的坐标偏移量。
-    3. `fetchTime`：更新地图的时间间隔，建议不要太小。（单位为 ms）
-    4. `paintTime`：每个用户每次 paint 的时间间隔，建议比洛谷限制稍大。
-    5. `users`：paint 所用的用户 `uid` 与 `client_id`，可添加多个。
+    1. `picFile`：生成好的图片，支持多张图同时 paint：
+        - `name`：`json` 文件名。
+        - `x`,`y`：绘制时的坐标偏移量。
+    2. `fetchTime`：更新地图的时间间隔，建议不要太小。（单位为 ms）
+    3. `paintTime`：每个用户每次 paint 的时间间隔，建议比洛谷限制稍大。（单位为 ms）
+    4. `users`：paint 所用的用户 `uid` 与 `client_id`，可添加多个。
+5. `npm start`，开始你的创作！
 
 ## Thanks
 
