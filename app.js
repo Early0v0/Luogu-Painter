@@ -55,11 +55,11 @@ function getPic() {
       pic.push({
         x: p.x,
         y: p.y,
-        map: JSON.parse(fs.readFileSync(path.join(__dirname, p.name), 'utf-8'))
+        map: JSON.parse(fs.readFileSync(path.join(__dirname, 'pictures', p.name), 'utf-8'))
       });
     }
   } catch (err) {
-    console.error('Get Picture Failed.');
+    console.error('Get Pictures Failed.');
     process.exit(1);
   }
 }

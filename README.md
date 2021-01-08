@@ -8,7 +8,7 @@
 
 1. Clone 项目到本地。
 2. `npm install`。
-3. 使用 `scripts/loadPic.py` 生成图片的 `json` 格式，将其放到项目根目录下。
+3. 使用 `scripts/loadPic.py` 生成图片的 `json` 格式，将其放到项目 `pictures` 目录下。
     - 需要安装 PIL 库：`pip install pillow`。
 4. 复制 `config-example.json` 为 `config.json`，并配置以下内容：
     1. `picFile`：生成好的图片，支持多张图同时 paint：
