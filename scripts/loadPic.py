@@ -1,7 +1,7 @@
 from PIL import Image
 import json
 
-imagePath = "./pic.jpg" # 文件地址，仅支持 .jpg 格式
+imagePath = "./pic.png" # 文件地址，支持 .jpg 与 .png 格式
 dataPath = '../pic.json' # 输出地址
 
 # 缩放后像素大小
@@ -74,7 +74,8 @@ def main():
 
     for i in range(0, w, 1):
         for j in range(0, h, 1):
-            color = get_color(im.getpixel((i, j)))
+            if im.mode == 'RGBA' and im.getpixel((i, j)) == (0, 0, 0, 0): continue
+            color = get_color(im.getpixel((i, j))[0:2])
             data.append({'x': i,'y': j,'color': color})
     save(data)
 
