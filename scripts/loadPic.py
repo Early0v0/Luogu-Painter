@@ -1,7 +1,11 @@
 from PIL import Image
 import json
 
-imagePath = "./pic.png" # 文件地址，支持 .jpg 与 .png 格式
+imagePath = "./pic.png" 
+
+# 文件地址，支持 .jpg 与 .png 格式。
+# 在 png 格式下不会维护纯透明像素，且会取消所有像素的透明度。建议将图片二元透明化处理后采用此模式。
+
 dataPath = '../pic.json' # 输出地址
 
 # 缩放后像素大小
