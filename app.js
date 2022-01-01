@@ -30,7 +30,10 @@ async function main() {
       }
       if (reqPaintPos.length) {
         user.lastPaintTime = Date.now();
-        await paintBoard(user, reqPaintPos.shift());
+        let data = reqPaintPos.shift();
+        if (!await paintBoard(user, data)) {
+          reqPaintPos.push(data);
+        }
         break;
       }
     }
@@ -106,15 +109,20 @@ async function paintBoard(user, data) {
   try {
     let res = await fetch(`${luoguPaintBoardUrl}/paint?token=${user.token}`, {
       method: 'POST',
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded',
+        'referer': luoguPaintBoardUrl
+      },
       body: querystring.stringify(data)
     });
-    res = JSON.parse(await res.text());
-    if (!res.errorMessage) {
-      console.log(new Date().toLocaleString(), 'Paint PaintBoard Succeeded.');
+    if (res.status == 200) {
+      console.log(new Date().toLocaleString(), 'Paint PaintBoard Succeeded:', user.token, data);
     } else {
-      throw new Error(res.errorMessage);
+      throw new Error(JSON.stringify(await res.json()));
     }
   } catch (err) {
-    console.warn(new Date().toLocaleString(), 'Paint PaintBoard Failed:', user.token, err);
+    console.warn(new Date().toLocaleString(), 'Paint PaintBoard Failed:', user.token, err.message);
+    return false;
   }
+  return true;
 }
