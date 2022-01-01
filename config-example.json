@@ -13,6 +13,7 @@
   ],
   "fetchTime": 10000,
   "paintTime": 31000,
+  "random": false,
   "users": [
     {
       "token": "998244353:qaq"

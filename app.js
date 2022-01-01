@@ -93,7 +93,10 @@ function getReqPaintPos() {
         }
       }
     }
-    console.log(new Date().toLocaleString(), 'Load reqPaintPos Succeeded.');
+    if (config.random) {
+      reqPaintPos.sort(() => Math.random() > 0.5);
+    }
+    console.log(new Date().toLocaleString(), `Load reqPaintPos Succeeded: Size = ${reqPaintPos.length}.`);
   } catch (err) {
     console.warn(new Date().toLocaleString(), 'Load reqPaintPos Failed:', err);
   }
