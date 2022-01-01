@@ -6,7 +6,7 @@ const fetch = require('node-fetch');
 const querystring = require('querystring');
 const process = require('process');
 
-const luoguPaintBoardUrl = 'https://www.luogu.com.cn/paintBoard';
+const luoguPaintBoardUrl = 'https://www.luogu.com.cn/paintboard';
 
 let config;
 let pic = [];
@@ -101,22 +101,17 @@ function getReqPaintPos() {
 
 async function paintBoard(user, data) {
   try {
-    let res = await fetch(luoguPaintBoardUrl + '/paint', {
+    let res = await fetch(`${luoguPaintBoardUrl}/paint?token=${user.token}`, {
       method: 'POST',
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded',
-        'referer': luoguPaintBoardUrl,
-        'cookie': `_uid=${user.uid};__client_id=${user.client_id}`
-      },
       body: querystring.stringify(data)
     });
     res = JSON.parse(await res.text());
-    if (res.status == 200) {
-      console.log(new Date().toLocaleString(), 'Paint PaintBoard Succeeded:', res.data);
+    if (!res.errorMessage) {
+      console.log(new Date().toLocaleString(), 'Paint PaintBoard Succeeded.');
     } else {
-      throw new Error(res.data);
+      throw new Error(res.errorMessage);
     }
   } catch (err) {
-    console.warn(new Date().toLocaleString(), 'Paint PaintBoard Failed:', err);
+    console.warn(new Date().toLocaleString(), 'Paint PaintBoard Failed:', user.token, err);
   }
 }

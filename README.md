@@ -16,7 +16,7 @@
         - `x`,`y`：绘制时的坐标偏移量。
     2. `fetchTime`：更新地图的时间间隔，建议不要太小。（单位为 ms）
     3. `paintTime`：每个用户每次 paint 的时间间隔，建议比洛谷限制稍大。（单位为 ms）
-    4. `users`：paint 所用的用户 `uid` 与 `client_id`，可添加多个。
+    4. `users`：paint 所用的用户 `token`，可添加多个。
 5. `npm start`，开始你的创作！
 
 ## Thanks
